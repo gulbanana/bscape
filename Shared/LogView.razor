@@ -1,3 +1,10 @@
+@code {
+    [Parameter] public IEnumerable<string> Lines { get; set; }
+}
+
 <div class="log">
-    Welcome to Scape!
+    @foreach (var line in Lines)
+    {
+        <text>@line</text><br>
+    }
 </div>

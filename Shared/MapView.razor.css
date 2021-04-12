@@ -4,4 +4,5 @@
     display: grid;
     grid-template-columns: repeat(80, auto);
     white-space: pre;
+    user-select: none;
 }

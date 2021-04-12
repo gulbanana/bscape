@@ -1,12 +1,13 @@
 ﻿@page "/"
-@inject Model.Game Model
 
-<main>
-    <h1 class="label">Scape!</h1>
+<InputManager>
+    <main>
+        <h1 class="label">Scape!</h1>
 
-    <p class="label">Move: wasd | 8426 | ↑←↓→<br>Wait: spacebar | 5</p>
+        <p class="label">Move: wasd | 8426 | ↑←↓→<br>Wait: spacebar | 5</p>
 
-    <div class="vert-center">
-        <GameView Model="@Model" />
-    </div>
-</main>
+        <div class="vert-center">
+            <GameView Model="@context" />
+        </div>
+    </main>
+</InputManager>

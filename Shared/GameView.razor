@@ -1,9 +1,24 @@
 @code {
     [Parameter] public Model.Game Model { get; set; }
+
+    private IEnumerable<Scene.INode> CreateScene()
+    {
+        yield return new Scene.Room();
+        yield return new Scene.Tile(Model.Player.Sym, Model.Player.X, Model.Player.Y);
+        foreach (var enemy in Model.Enemies)
+        {
+            yield return new Scene.Tile(enemy.Sym, enemy.X, enemy.Y);
+        }
+    }
 }
 
 <div class="columns">
-    <div />
-    <MapView Scene="@Model.CreateScene()" />
-    <LogView />
+    <div>
+        <h2>debug</h2>
+        <p>last key: @Model.LastKey</p>
+    </div>
+
+    <MapView Scene="@CreateScene()" />
+
+    <LogView Lines="@Model.Log.Reverse().Take(100)" />
 </div>

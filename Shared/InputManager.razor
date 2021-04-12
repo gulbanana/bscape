@@ -1,0 +1,33 @@
+@code {
+    [Parameter] public RenderFragment<Model.Game> ChildContent { get; set; }
+    private State state;
+    private ElementReference manager;
+
+    protected override void OnInitialized()
+    {
+        state = new State();
+    }
+
+    protected async override Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            await manager.FocusAsync();
+        }
+    }
+
+    private void KeyDown(KeyboardEventArgs e)
+    {
+        state.Key(e.Code);
+        StateHasChanged();
+    }
+
+    private void KeyUp(KeyboardEventArgs e)
+    {
+        // todo: track up+down states, initiate input only on additions to the set
+    }
+}
+
+<div @ref="manager" class="manager" tabindex="0" @onkeydown="KeyDown">
+    @ChildContent(state.Model)
+</div>
