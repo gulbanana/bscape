@@ -1,4 +1,7 @@
 .map {
     font-family: 'Cutive Mono', monospace;
     font-size: 20px;
+    display: grid;
+    grid-template-columns: repeat(80, auto);
+    white-space: pre;
 }

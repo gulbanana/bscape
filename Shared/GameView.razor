@@ -1,5 +1,9 @@
+@code {
+    [Parameter] public Model.Game Model { get; set; }
+}
+
 <div class="columns">
     <div />
-    <MapView />
+    <MapView Scene="@Model.CreateScene()" />
     <LogView />
 </div>

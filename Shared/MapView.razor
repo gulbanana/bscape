@@ -1,10 +1,41 @@
-<div class="map">
-    @for (var i = 0; i < 24; i++) 
+@using scape.Scene
+@code {
+    [Parameter] public IEnumerable<Scene.INode> Scene { get; set; }
+    private string[,] map;
+
+    protected override void OnParametersSet()
     {
-        @for (var j = 0; j < 80; j++) 
+        map = new string[24, 80];
+        for (var i = 0; i < 24; i++)
         {
-            <span>.</span>
+            for (var j = 0; j < 80; j++)
+            {
+                map[i, j] = " ";
+            }
         }
-        <br>
+        foreach (var node in Scene)
+        {
+            switch (node)
+            {
+                case Room:
+                    for (var i = 0; i < 79; i++) map[0, i] = "#";
+                    for (var i = 0; i < 23; i++) map[i, 79] = "#";
+                    for (var i = 1; i < 80; i++) map[23, i] = "#";
+                    for (var i = 1; i < 24; i++) map[i, 0] = "#";
+                    for (var i = 1; i < 79; i++) for (var j = 1; j < 23; j++) map[j, i] = ".";
+                    break;
+
+                case Tile t:
+                    map[t.Y, t.X] = t.GraphemeCluster;
+                    break;
+            }
+        }
+    }
+}
+
+<div class="map">
+    @foreach (var tile in map)
+    {
+        <span>@tile</span>
     }
 </div>
