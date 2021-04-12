@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Immutable;
 
 namespace scape
@@ -13,7 +14,9 @@ namespace scape
                 new Model.Mob("@", 40, 12),
                 new Model.Mob[]
                 {
-                    new Model.Mob("d", 1, 1),
+                    new Model.Mob("d", 1, 21),
+                    new Model.Mob("d", 4, 6),
+                    new Model.Mob("d", 11, 2),
                 },
                 LastKey: ""
             );
@@ -49,11 +52,12 @@ namespace scape
         {
             switch (cmd)
             {
+                // XXX assumes player
                 case Command.MoveTo m:
                     Model = Model with {
                         Player = Model.Player with {
-                            X = m.X,
-                            Y = m.Y
+                            X = Math.Clamp(m.X, 1, 78),
+                            Y = Math.Clamp(m.Y, 1, 22)
                         }
                     };
                     break;
